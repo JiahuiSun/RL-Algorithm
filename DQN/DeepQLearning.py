@@ -66,6 +66,7 @@ class DeepQLearning:
         self.s_ = tf.placeholder(tf.float32, [None, self.state_dim], name='s_')
         self.a = tf.placeholder(tf.int32, [None, ], name='a')
         self.r = tf.placeholder(tf.float32, [None, ], name='r')
+        self.done = tf.placeholder(tf.float32, [None, ], name='done')
 
         w_initializer, b_initializer = tf.random_normal_initializer(0., 0.3), tf.constant_initializer(0.1)
 
@@ -84,8 +85,8 @@ class DeepQLearning:
                                     bias_initializer=b_initializer, name='q_next')
 
         # 定义训练操作
-        with tf.variable_scope('q_target'):  # done???
-            q_target = self.r + self.gamma * tf.reduce_max(self.q_next, axis=1, name='maxQs_')
+        with tf.variable_scope('q_target'):  # done
+            q_target = self.r + self.gamma * (1 - self.done) * tf.reduce_max(self.q_next, axis=1, name='maxQs_')
             self.q_target = tf.stop_gradient(q_target)
         with tf.variable_scope('q_eval'):
             a_indices = tf.stack([tf.range(tf.shape(self.a)[0], dtype=tf.int32), self.a], axis=1)
@@ -114,6 +115,7 @@ class DeepQLearning:
         action_batch = [data[1] for data in batch]
         reward_batch = [data[2] for data in batch]
         next_state_batch = [data[3] for data in batch]
+        done = [data[4] for data in batch]
 
         # 开始训练
         _, cost = self.sess.run(
@@ -123,6 +125,7 @@ class DeepQLearning:
                 self.a: action_batch,
                 self.r: reward_batch, 
                 self.s_: next_state_batch,
+                self.done: done,
             }
         )
 
@@ -130,8 +133,8 @@ class DeepQLearning:
         self.learn_step_counter += 1
 
 
-    def save_transtion(self, state, action, reward, next_state):
-        self.replay_buffer.append((state, action, reward, next_state))
+    def save_transtion(self, state, action, reward, next_state, done):
+        self.replay_buffer.append((state, action, reward, next_state, done))
         if len(self.replay_buffer) > self.replay_buffer_size:
             self.replay_buffer.popleft()
 

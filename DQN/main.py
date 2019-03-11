@@ -13,7 +13,7 @@ if __name__ == '__main__':
             env.render()
             action = RL.choose_action(observation)
             observation_, reward, done, _ = env.step(action)
-            RL.save_transtion(observation, action, reward, observation_)
+            RL.save_transtion(observation, action, reward, observation_, done)
             # 防止积累数据不足batch_size
             if step > 50:
                 RL.train_Q_network()
