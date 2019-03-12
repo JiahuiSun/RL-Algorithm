@@ -84,13 +84,15 @@ class DeepQLearning:
             self.q_next = tf.layers.dense(targ_1, self.action_dim, kernel_initializer=w_initializer,
                                     bias_initializer=b_initializer, name='q_next')
 
-        # 定义训练操作
-        with tf.variable_scope('q_target'):  # done
-            q_target = self.r + self.gamma * (1 - self.done) * tf.reduce_max(self.q_next, axis=1, name='maxQs_')
+        # target网络，对q_直接取max即可
+        with tf.variable_scope('q_target'): 
+            q_target = self.r + self.gamma * (1 - self.done) * tf.reduce_max(self.q_next, axis=1, name='maxQs_a_')
             self.q_target = tf.stop_gradient(q_target)
+        # evaluate网络，对q要取对应的q(s, a)
         with tf.variable_scope('q_eval'):
             a_indices = tf.stack([tf.range(tf.shape(self.a)[0], dtype=tf.int32), self.a], axis=1)
             self.q_eval_wrt_a = tf.gather_nd(params=self.q_eval, indices=a_indices)
+        # loss function and optimizer
         with tf.variable_scope('loss'):
             self.loss = tf.reduce_mean(tf.squared_difference(self.q_target, self.q_eval_wrt_a, name='TD_error'))
         with tf.variable_scope('train'):
@@ -110,12 +112,16 @@ class DeepQLearning:
             print('target parameters replaced at step {}'.format(self.learn_step_counter))
 
         # sample (s, a, r, s') 如果开始没有足够的数据怎么办？？？
-        batch = random.sample(self.replay_buffer, self.batch_size)
-        state_batch = [data[0] for data in batch]
-        action_batch = [data[1] for data in batch]
-        reward_batch = [data[2] for data in batch]
-        next_state_batch = [data[3] for data in batch]
-        done = [data[4] for data in batch]
+        try:
+            batch = random.sample(self.replay_buffer, self.batch_size)
+            state_batch = [data[0] for data in batch]
+            action_batch = [data[1] for data in batch]
+            reward_batch = [data[2] for data in batch]
+            next_state_batch = [data[3] for data in batch]
+            done = [data[4] for data in batch]
+        except:
+            print('no enough buffer history')
+            return 
 
         # 开始训练
         _, cost = self.sess.run(
@@ -140,6 +146,7 @@ class DeepQLearning:
 
     
     def choose_action(self, observation):
+        # make it into batch form
         observation = observation[np.newaxis, :]
 
         if np.random.uniform() < self.epsilon:
