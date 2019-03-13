@@ -50,17 +50,6 @@ class DeepQLearning:
 
 
     def _build_Q_network(self):
-        """
-        建立Q-target网络和Q-evaluate网络
-        target: 
-            input: s'
-            param: old theta
-        eval:
-            input: s
-            param: new theta
-
-        """
-
         # define all inputs 
         self.s = tf.placeholder(tf.float32, [None, self.state_dim], name='s')
         self.s_ = tf.placeholder(tf.float32, [None, self.state_dim], name='s_')
@@ -148,7 +137,6 @@ class DeepQLearning:
     def choose_action(self, observation):
         # make it into batch form
         observation = observation[np.newaxis, :]
-
         if np.random.uniform() < self.epsilon:
             action = random.randint(0, self.action_dim-1)
         else:
@@ -158,6 +146,5 @@ class DeepQLearning:
 
         if self.epsilon_decrement is not None:
             self.epsilon -= self.epsilon_decrement
-        
         return action
 
