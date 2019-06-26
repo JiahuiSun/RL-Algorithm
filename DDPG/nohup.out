@@ -1,0 +1,30 @@
+[I 21:55:57.172 NotebookApp] JupyterLab extension loaded from /Users/jiahuisun/anaconda3/lib/python3.6/site-packages/jupyterlab
+[I 21:55:57.173 NotebookApp] JupyterLab application directory is /Users/jiahuisun/anaconda3/share/jupyter/lab
+[I 21:55:57.174 NotebookApp] Serving notebooks from local directory: /Users/jiahuisun/userDocuments/learn_RL/RL-Algorithm/DDPG
+[I 21:55:57.175 NotebookApp] The Jupyter Notebook is running at:
+[I 21:55:57.175 NotebookApp] http://localhost:8888/?token=b58039507ca528171878a544612648f3b22a55d944f9a488
+[I 21:55:57.175 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 21:55:57.178 NotebookApp] 
+    
+    Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://localhost:8888/?token=b58039507ca528171878a544612648f3b22a55d944f9a488
+[I 21:55:57.456 NotebookApp] Accepting one-time-token-authenticated connection from ::1
+[I 21:56:04.052 NotebookApp] Creating new notebook in 
+[I 21:56:04.957 NotebookApp] Kernel started: ff272f20-4150-4cb3-bd8c-0b048b40372b
+[I 21:56:05.811 NotebookApp] Adapting to protocol v5.1 for kernel ff272f20-4150-4cb3-bd8c-0b048b40372b
+[I 21:58:04.906 NotebookApp] Saving file at /Untitled.ipynb
+[I 22:00:05.120 NotebookApp] Saving file at /Untitled.ipynb
+[I 22:03:38.445 NotebookApp] Starting buffering for ff272f20-4150-4cb3-bd8c-0b048b40372b:ac42700b8e934de38bb61cb822e7bcb4
+[I 22:03:42.186 NotebookApp] Adapting to protocol v5.1 for kernel ff272f20-4150-4cb3-bd8c-0b048b40372b
+[I 22:03:47.745 NotebookApp] Starting buffering for ff272f20-4150-4cb3-bd8c-0b048b40372b:d5ac1277b2c046c8bab6c0f5d1d45034
+[I 22:03:48.064 NotebookApp] Kernel restarted: ff272f20-4150-4cb3-bd8c-0b048b40372b
+[I 22:03:48.971 NotebookApp] Adapting to protocol v5.1 for kernel ff272f20-4150-4cb3-bd8c-0b048b40372b
+[I 22:03:48.972 NotebookApp] Restoring connection for ff272f20-4150-4cb3-bd8c-0b048b40372b:d5ac1277b2c046c8bab6c0f5d1d45034
+[I 22:03:48.972 NotebookApp] Replaying 6 buffered messages
+[I 22:03:57.055 NotebookApp] Saving file at /Untitled.ipynb
+[I 22:03:57.946 NotebookApp] Saving file at /Untitled.ipynb
+[I 22:03:58.815 NotebookApp] Starting buffering for ff272f20-4150-4cb3-bd8c-0b048b40372b:d5ac1277b2c046c8bab6c0f5d1d45034
+[C 22:04:42.978 NotebookApp] received signal 15, stopping
+[I 22:04:42.979 NotebookApp] Shutting down 1 kernel
+[I 22:04:43.184 NotebookApp] Kernel shutdown: ff272f20-4150-4cb3-bd8c-0b048b40372b
